@@ -1,0 +1,163 @@
+[
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "send_file",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "send_file",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "secure_filename",
+        "importPath": "werkzeug.utils",
+        "description": "werkzeug.utils",
+        "isExtraImport": true,
+        "detail": "werkzeug.utils",
+        "documentation": {}
+    },
+    {
+        "label": "CORS",
+        "importPath": "flask_cors",
+        "description": "flask_cors",
+        "isExtraImport": true,
+        "detail": "flask_cors",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "allowed_file",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def allowed_file(filename):\n    return \".\" in filename and filename.rsplit(\".\", 1)[1].lower() in ALLOWED_EXTENSIONS\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_file():\n    if \"file\" not in request.files:\n        return jsonify({\"message\": \"No file part in the request\"}, 400)\n    file = request.files[\"file\"]\n    if file.filename == \"\":\n        return jsonify({\"message\": \"No selected file\"}, 400)\n    if file:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "upload_file",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def upload_file():\n    if \"file\" not in request.files:\n        return jsonify({\"message\": \"No file part in the request\"}, 400)\n    file = request.files[\"file\"]\n    if file.filename == \"\":\n        return jsonify({\"message\": \"No selected file\"}, 400)\n    if file:\n        filename = secure_filename(file.filename)\n        print(filename)\n        file.save(os.path.join(app.config[\"UPLOAD_FOLDER\"], filename))",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "download_file",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def download_file(filename):\n    filepath = os.path.join(app.config[\"UPLOAD_FOLDER\"], filename)\n    if os.path.exists(filepath):\n        return send_file(filepath, as_attachment=False, mimetype=\"application/pdf\")\n    else:\n        return jsonify({\"message\": \"File not found\"}, 404)\nif __name__ == \"__main__\":\n    app.run(debug=True, port=8050)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\nCORS(app)\nUPLOAD_FOLDER = \"uploads\"\nALLOWED_EXTENSIONS = {\"pdf\"}\napp.config[\"UPLOAD_FOLDER\"] = UPLOAD_FOLDER\ndef allowed_file(filename):\n    return \".\" in filename and filename.rsplit(\".\", 1)[1].lower() in ALLOWED_EXTENSIONS\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_file():\n    if \"file\" not in request.files:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "UPLOAD_FOLDER",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "UPLOAD_FOLDER = \"uploads\"\nALLOWED_EXTENSIONS = {\"pdf\"}\napp.config[\"UPLOAD_FOLDER\"] = UPLOAD_FOLDER\ndef allowed_file(filename):\n    return \".\" in filename and filename.rsplit(\".\", 1)[1].lower() in ALLOWED_EXTENSIONS\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_file():\n    if \"file\" not in request.files:\n        return jsonify({\"message\": \"No file part in the request\"}, 400)\n    file = request.files[\"file\"]",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "ALLOWED_EXTENSIONS",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "ALLOWED_EXTENSIONS = {\"pdf\"}\napp.config[\"UPLOAD_FOLDER\"] = UPLOAD_FOLDER\ndef allowed_file(filename):\n    return \".\" in filename and filename.rsplit(\".\", 1)[1].lower() in ALLOWED_EXTENSIONS\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_file():\n    if \"file\" not in request.files:\n        return jsonify({\"message\": \"No file part in the request\"}, 400)\n    file = request.files[\"file\"]\n    if file.filename == \"\":",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config[\"UPLOAD_FOLDER\"]",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config[\"UPLOAD_FOLDER\"] = UPLOAD_FOLDER\ndef allowed_file(filename):\n    return \".\" in filename and filename.rsplit(\".\", 1)[1].lower() in ALLOWED_EXTENSIONS\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_file():\n    if \"file\" not in request.files:\n        return jsonify({\"message\": \"No file part in the request\"}, 400)\n    file = request.files[\"file\"]\n    if file.filename == \"\":\n        return jsonify({\"message\": \"No selected file\"}, 400)",
+        "detail": "app",
+        "documentation": {}
+    }
+]
