@@ -73,6 +73,14 @@
         "documentation": {}
     },
     {
+        "label": "current_app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "Blueprint",
         "importPath": "flask",
         "description": "flask",
@@ -298,7 +306,111 @@
         "documentation": {}
     },
     {
+        "label": "BaseCallbackHandler",
+        "importPath": "langchain.callbacks.base",
+        "description": "langchain.callbacks.base",
+        "isExtraImport": true,
+        "detail": "langchain.callbacks.base",
+        "documentation": {}
+    },
+    {
+        "label": "BaseCallbackHandler",
+        "importPath": "langchain.callbacks.base",
+        "description": "langchain.callbacks.base",
+        "isExtraImport": true,
+        "detail": "langchain.callbacks.base",
+        "documentation": {}
+    },
+    {
+        "label": "ConversationalRetrievalChain",
+        "importPath": "langchain.chains",
+        "description": "langchain.chains",
+        "isExtraImport": true,
+        "detail": "langchain.chains",
+        "documentation": {}
+    },
+    {
+        "label": "ConversationalRetrievalChain",
+        "importPath": "langchain.chains",
+        "description": "langchain.chains",
+        "isExtraImport": true,
+        "detail": "langchain.chains",
+        "documentation": {}
+    },
+    {
+        "label": "StreamableChain",
+        "importPath": "app.chat.chains.streamable",
+        "description": "app.chat.chains.streamable",
+        "isExtraImport": true,
+        "detail": "app.chat.chains.streamable",
+        "documentation": {}
+    },
+    {
+        "label": "StreamableChain",
+        "importPath": "app.chat.chains.streamable",
+        "description": "app.chat.chains.streamable",
+        "isExtraImport": true,
+        "detail": "app.chat.chains.streamable",
+        "documentation": {}
+    },
+    {
+        "label": "Thread",
+        "importPath": "threading",
+        "description": "threading",
+        "isExtraImport": true,
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "Thread",
+        "importPath": "threading",
+        "description": "threading",
+        "isExtraImport": true,
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "Queue",
+        "importPath": "queue",
+        "description": "queue",
+        "isExtraImport": true,
+        "detail": "queue",
+        "documentation": {}
+    },
+    {
+        "label": "Queue",
+        "importPath": "queue",
+        "description": "queue",
+        "isExtraImport": true,
+        "detail": "queue",
+        "documentation": {}
+    },
+    {
+        "label": "StreamingHandler",
+        "importPath": "app.chat.callbacks.stream",
+        "description": "app.chat.callbacks.stream",
+        "isExtraImport": true,
+        "detail": "app.chat.callbacks.stream",
+        "documentation": {}
+    },
+    {
         "label": "OpenAIEmbeddings",
+        "importPath": "langchain_openai",
+        "description": "langchain_openai",
+        "isExtraImport": true,
+        "detail": "langchain_openai",
+        "documentation": {}
+    },
+    {
+        "label": "ChatOpenAI",
+        "importPath": "langchain_openai",
+        "description": "langchain_openai",
+        "isExtraImport": true,
+        "detail": "langchain_openai",
+        "documentation": {}
+    },
+    {
+        "label": "ChatOpenAI",
         "importPath": "langchain_openai",
         "description": "langchain_openai",
         "isExtraImport": true,
@@ -504,14 +616,6 @@
         "description": "app.chat.embeddings.openai",
         "isExtraImport": true,
         "detail": "app.chat.embeddings.openai",
-        "documentation": {}
-    },
-    {
-        "label": "ConversationalRetrievalChain",
-        "importPath": "langchain.chains",
-        "description": "langchain.chains",
-        "isExtraImport": true,
-        "detail": "langchain.chains",
         "documentation": {}
     },
     {
@@ -953,11 +1057,52 @@
         "documentation": {}
     },
     {
+        "label": "shlex",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "shlex",
+        "description": "shlex",
+        "detail": "shlex",
+        "documentation": {}
+    },
+    {
         "label": "task",
         "importPath": "invoke",
         "description": "invoke",
         "isExtraImport": true,
         "detail": "invoke",
+        "documentation": {}
+    },
+    {
+        "label": "ChatPromptTemplate",
+        "importPath": "langchain_core.prompts",
+        "description": "langchain_core.prompts",
+        "isExtraImport": true,
+        "detail": "langchain_core.prompts",
+        "documentation": {}
+    },
+    {
+        "label": "StrOutputParser",
+        "importPath": "langchain_core.output_parsers",
+        "description": "langchain_core.output_parsers",
+        "isExtraImport": true,
+        "detail": "langchain_core.output_parsers",
+        "documentation": {}
+    },
+    {
+        "label": "Runnable",
+        "importPath": "langchain_core.runnables",
+        "description": "langchain_core.runnables",
+        "isExtraImport": true,
+        "detail": "langchain_core.runnables",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
         "documentation": {}
     },
     {
@@ -1042,6 +1187,33 @@
         "documentation": {}
     },
     {
+        "label": "StreamingHandler",
+        "kind": 6,
+        "importPath": "pdf.app.chat.callbacks.stream",
+        "description": "pdf.app.chat.callbacks.stream",
+        "peekOfCode": "class StreamingHandler(BaseCallbackHandler):\n    def __init__(self, queue):\n        self.queue = queue\n        self.streaming_run_ids = set()\n    def on_chat_model_start(self, serialized, messages, run_id,**kwargs):\n        is_streaming = kwargs.get(\"invocation_params\",{}).get(\"stream\", False)\n        if is_streaming:\n            self.streaming_run_ids.add(run_id)\n    def on_llm_new_token(self, token, run_id, **kwargs):\n        if run_id in self.streaming_run_ids:",
+        "detail": "pdf.app.chat.callbacks.stream",
+        "documentation": {}
+    },
+    {
+        "label": "StreamingConversationalRetrievalChain",
+        "kind": 6,
+        "importPath": "pdf.app.chat.chains.retrieval",
+        "description": "pdf.app.chat.chains.retrieval",
+        "peekOfCode": "class StreamingConversationalRetrievalChain(\n    StreamableChain, ConversationalRetrievalChain\n):\n    pass",
+        "detail": "pdf.app.chat.chains.retrieval",
+        "documentation": {}
+    },
+    {
+        "label": "StreamableChain",
+        "kind": 6,
+        "importPath": "pdf.app.chat.chains.streamable",
+        "description": "pdf.app.chat.chains.streamable",
+        "peekOfCode": "class StreamableChain:\n    def __init__(self, chain):\n        self.chain = chain\n    def __getattr__(self, name):\n        return getattr(self.chain, name)\n    def invoke(self, input, config=None, **kwargs):\n        return self.chain.invoke(input, config=config, **kwargs)\n    def stream(self, input, config=None):\n        token_queue = Queue()\n        handler = StreamingHandler(token_queue)",
+        "detail": "pdf.app.chat.chains.streamable",
+        "documentation": {}
+    },
+    {
         "label": "embeddings",
         "kind": 5,
         "importPath": "pdf.app.chat.embeddings.openai",
@@ -1055,7 +1227,7 @@
         "kind": 2,
         "importPath": "pdf.app.chat.llms.chatopenai",
         "description": "pdf.app.chat.llms.chatopenai",
-        "peekOfCode": "def build_llm(chat_args):\n    return ChatOpenAI()",
+        "peekOfCode": "def build_llm(chat_args):\n    return ChatOpenAI(streaming=chat_args.streaming)",
         "detail": "pdf.app.chat.llms.chatopenai",
         "documentation": {}
     },
@@ -1082,7 +1254,7 @@
         "kind": 2,
         "importPath": "pdf.app.chat.vector_stores.pinecone",
         "description": "pdf.app.chat.vector_stores.pinecone",
-        "peekOfCode": "def build_retriever(chat_args):\n    search_kwargs={\"filter\":{\"pdf_id\": chat_args.pdf_id}}\n    return vector_store.as_retriever(search_kwargs=search_kwargs)",
+        "peekOfCode": "def build_retriever(chat_args):\n    # search_kwargs={\"filter\":{\"pdf_id\": chat_args.pdf_id}}\n    # return vector_store.as_retriever(search_kwargs=search_kwargs)\n        search_kwargs = {\n        \"k\": 4,\n        \"filter\": {\n            \"pdf_id\": chat_args.pdf_id,\n        },\n    }\n        return vector_store.as_retriever(search_kwargs=search_kwargs)",
         "detail": "pdf.app.chat.vector_stores.pinecone",
         "documentation": {}
     },
@@ -1091,7 +1263,7 @@
         "kind": 5,
         "importPath": "pdf.app.chat.vector_stores.pinecone",
         "description": "pdf.app.chat.vector_stores.pinecone",
-        "peekOfCode": "vector_store = Pinecone.from_existing_index(\n    os.getenv(\"PINECONE_INDEX_NAME\"),\n    embeddings\n)\ndef build_retriever(chat_args):\n    search_kwargs={\"filter\":{\"pdf_id\": chat_args.pdf_id}}\n    return vector_store.as_retriever(search_kwargs=search_kwargs)",
+        "peekOfCode": "vector_store = Pinecone.from_existing_index(\n    os.getenv(\"PINECONE_INDEX_NAME\"),\n    embeddings\n)\ndef build_retriever(chat_args):\n    # search_kwargs={\"filter\":{\"pdf_id\": chat_args.pdf_id}}\n    # return vector_store.as_retriever(search_kwargs=search_kwargs)\n        search_kwargs = {\n        \"k\": 4,\n        \"filter\": {",
         "detail": "pdf.app.chat.vector_stores.pinecone",
         "documentation": {}
     },
@@ -1496,7 +1668,7 @@
         "kind": 2,
         "importPath": "pdf.tasks",
         "description": "pdf.tasks",
-        "peekOfCode": "def dev(ctx):\n    ctx.run(\n        \"flask --app app.web run --debug --port 8000\",\n        pty=os.name != \"nt\",\n        env={\"APP_ENV\": \"development\"},\n    )\n@task\ndef devworker(ctx):\n    ctx.run(\n        \"watchmedo auto-restart --directory=./app --pattern=*.py --recursive -- celery -A app.celery.worker worker --concurrency=1 --loglevel=INFO --pool=solo\",",
+        "peekOfCode": "def dev(ctx):\n    ctx.run(\n        \"flask --app app.web run --debug --port 8000\",\n        pty=os.name != \"nt\",\n        env={\"APP_ENV\": \"development\"},\n    )\n# @task\n# def devworker(ctx):\n#     ctx.run(\n#         \"watchmedo auto-restart --directory=./app --pattern=*.py --recursive -- celery -A app.celery.worker worker --concurrency=1 --loglevel=INFO --pool=solo\",",
         "detail": "pdf.tasks",
         "documentation": {}
     },
@@ -1505,8 +1677,71 @@
         "kind": 2,
         "importPath": "pdf.tasks",
         "description": "pdf.tasks",
-        "peekOfCode": "def devworker(ctx):\n    ctx.run(\n        \"watchmedo auto-restart --directory=./app --pattern=*.py --recursive -- celery -A app.celery.worker worker --concurrency=1 --loglevel=INFO --pool=solo\",\n        pty=os.name != \"nt\",\n        env={\"APP_ENV\": \"development\"},\n    )",
+        "peekOfCode": "def devworker(ctx):\n    python = f'\"{sys.executable}\"'\n    cmd = (\n        f\"{python} \"\n        \"-m celery \"\n        \"-A app.celery.worker \"\n        \"worker \"\n        \"--concurrency=1 \"\n        \"--loglevel=INFO \"\n        \"--pool=solo\"",
         "detail": "pdf.tasks",
+        "documentation": {}
+    },
+    {
+        "label": "StreamingHandler",
+        "kind": 6,
+        "importPath": "pdf.test",
+        "description": "pdf.test",
+        "peekOfCode": "class StreamingHandler(BaseCallbackHandler):\n    def __init__(self, queue):\n        self.queue = queue\n    def on_llm_new_token(self, token, **kwargs):\n        self.queue.put(token)\n    def on_llm_end(self, response, **kwargs):\n        self.queue.put(None)\n    def on_llm_error(self, error, **kwargs):\n        self.queue.put(None)        \nchat = ChatOpenAI(streaming=True)",
+        "detail": "pdf.test",
+        "documentation": {}
+    },
+    {
+        "label": "StreamableChain",
+        "kind": 6,
+        "importPath": "pdf.test",
+        "description": "pdf.test",
+        "peekOfCode": "class StreamableChain:\n    def __init__(self, chain):\n        self.chain = chain\n    def invoke(self, input, config=None, **kwargs):\n        return self.chain.invoke(input, config=config, **kwargs)\n    def stream(self, input, config=None):\n        token_queue = Queue()\n        handler = StreamingHandler(token_queue)\n        def task():\n            try:",
+        "detail": "pdf.test",
+        "documentation": {}
+    },
+    {
+        "label": "StreamingChain",
+        "kind": 6,
+        "importPath": "pdf.test",
+        "description": "pdf.test",
+        "peekOfCode": "class StreamingChain(StreamableChain, Runnable[dict, str]):\n    pass\nchain = StreamingChain(base_chain)\nfor chunk in chain.stream({\"content\": \"tell me a good news\"}):\n   print(chunk, end=\"\", flush=True)",
+        "detail": "pdf.test",
+        "documentation": {}
+    },
+    {
+        "label": "chat",
+        "kind": 5,
+        "importPath": "pdf.test",
+        "description": "pdf.test",
+        "peekOfCode": "chat = ChatOpenAI(streaming=True)\nprompt = ChatPromptTemplate.from_messages([\n    (\"human\", \"{content}\")\n])\nbase_chain = prompt | chat | StrOutputParser()\nclass StreamableChain:\n    def __init__(self, chain):\n        self.chain = chain\n    def invoke(self, input, config=None, **kwargs):\n        return self.chain.invoke(input, config=config, **kwargs)",
+        "detail": "pdf.test",
+        "documentation": {}
+    },
+    {
+        "label": "prompt",
+        "kind": 5,
+        "importPath": "pdf.test",
+        "description": "pdf.test",
+        "peekOfCode": "prompt = ChatPromptTemplate.from_messages([\n    (\"human\", \"{content}\")\n])\nbase_chain = prompt | chat | StrOutputParser()\nclass StreamableChain:\n    def __init__(self, chain):\n        self.chain = chain\n    def invoke(self, input, config=None, **kwargs):\n        return self.chain.invoke(input, config=config, **kwargs)\n    def stream(self, input, config=None):",
+        "detail": "pdf.test",
+        "documentation": {}
+    },
+    {
+        "label": "base_chain",
+        "kind": 5,
+        "importPath": "pdf.test",
+        "description": "pdf.test",
+        "peekOfCode": "base_chain = prompt | chat | StrOutputParser()\nclass StreamableChain:\n    def __init__(self, chain):\n        self.chain = chain\n    def invoke(self, input, config=None, **kwargs):\n        return self.chain.invoke(input, config=config, **kwargs)\n    def stream(self, input, config=None):\n        token_queue = Queue()\n        handler = StreamingHandler(token_queue)\n        def task():",
+        "detail": "pdf.test",
+        "documentation": {}
+    },
+    {
+        "label": "chain",
+        "kind": 5,
+        "importPath": "pdf.test",
+        "description": "pdf.test",
+        "peekOfCode": "chain = StreamingChain(base_chain)\nfor chunk in chain.stream({\"content\": \"tell me a good news\"}):\n   print(chunk, end=\"\", flush=True)",
+        "detail": "pdf.test",
         "documentation": {}
     }
 ]
