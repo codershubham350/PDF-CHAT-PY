@@ -619,6 +619,15 @@
         "documentation": {}
     },
     {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
         "label": "ChatArgs",
         "importPath": "app.chat.models",
         "description": "app.chat.models",
@@ -627,35 +636,27 @@
         "documentation": {}
     },
     {
-        "label": "build_retriever",
-        "importPath": "app.chat.vector_stores.pinecone",
-        "description": "app.chat.vector_stores.pinecone",
+        "label": "retriever_map",
+        "importPath": "app.chat.vector_stores",
+        "description": "app.chat.vector_stores",
         "isExtraImport": true,
-        "detail": "app.chat.vector_stores.pinecone",
+        "detail": "app.chat.vector_stores",
         "documentation": {}
     },
     {
-        "label": "vector_store",
-        "importPath": "app.chat.vector_stores.pinecone",
-        "description": "app.chat.vector_stores.pinecone",
+        "label": "llm_map",
+        "importPath": "app.chat.llms",
+        "description": "app.chat.llms",
         "isExtraImport": true,
-        "detail": "app.chat.vector_stores.pinecone",
+        "detail": "app.chat.llms",
         "documentation": {}
     },
     {
-        "label": "build_llm",
-        "importPath": "app.chat.llms.chatopenai",
-        "description": "app.chat.llms.chatopenai",
+        "label": "memory_map",
+        "importPath": "app.chat.memories",
+        "description": "app.chat.memories",
         "isExtraImport": true,
-        "detail": "app.chat.llms.chatopenai",
-        "documentation": {}
-    },
-    {
-        "label": "build_memory",
-        "importPath": "app.chat.memories.sql_memory",
-        "description": "app.chat.memories.sql_memory",
-        "isExtraImport": true,
-        "detail": "app.chat.memories.sql_memory",
+        "detail": "app.chat.memories",
         "documentation": {}
     },
     {
@@ -672,6 +673,14 @@
         "description": "langchain.text_splitter",
         "isExtraImport": true,
         "detail": "langchain.text_splitter",
+        "documentation": {}
+    },
+    {
+        "label": "vector_store",
+        "importPath": "app.chat.vector_stores.pinecone",
+        "description": "app.chat.vector_stores.pinecone",
+        "isExtraImport": true,
+        "detail": "app.chat.vector_stores.pinecone",
         "documentation": {}
     },
     {
@@ -1227,7 +1236,7 @@
         "kind": 2,
         "importPath": "pdf.app.chat.llms.chatopenai",
         "description": "pdf.app.chat.llms.chatopenai",
-        "peekOfCode": "def build_llm(chat_args):\n    return ChatOpenAI(streaming=chat_args.streaming)",
+        "peekOfCode": "def build_llm(chat_args, model_name):\n    return ChatOpenAI(\n        streaming=chat_args.streaming,\n        model_name=model_name\n        )",
         "detail": "pdf.app.chat.llms.chatopenai",
         "documentation": {}
     },
@@ -1254,7 +1263,7 @@
         "kind": 2,
         "importPath": "pdf.app.chat.vector_stores.pinecone",
         "description": "pdf.app.chat.vector_stores.pinecone",
-        "peekOfCode": "def build_retriever(chat_args):\n    # search_kwargs={\"filter\":{\"pdf_id\": chat_args.pdf_id}}\n    # return vector_store.as_retriever(search_kwargs=search_kwargs)\n        search_kwargs = {\n        \"k\": 4,\n        \"filter\": {\n            \"pdf_id\": chat_args.pdf_id,\n        },\n    }\n        return vector_store.as_retriever(search_kwargs=search_kwargs)",
+        "peekOfCode": "def build_retriever(chat_args, k):\n        search_kwargs = {\n        \"k\": k,\n        \"filter\": {\n            \"pdf_id\": chat_args.pdf_id,\n        },\n    }\n        return vector_store.as_retriever(search_kwargs=search_kwargs)",
         "detail": "pdf.app.chat.vector_stores.pinecone",
         "documentation": {}
     },
@@ -1263,8 +1272,17 @@
         "kind": 5,
         "importPath": "pdf.app.chat.vector_stores.pinecone",
         "description": "pdf.app.chat.vector_stores.pinecone",
-        "peekOfCode": "vector_store = Pinecone.from_existing_index(\n    os.getenv(\"PINECONE_INDEX_NAME\"),\n    embeddings\n)\ndef build_retriever(chat_args):\n    # search_kwargs={\"filter\":{\"pdf_id\": chat_args.pdf_id}}\n    # return vector_store.as_retriever(search_kwargs=search_kwargs)\n        search_kwargs = {\n        \"k\": 4,\n        \"filter\": {",
+        "peekOfCode": "vector_store = Pinecone.from_existing_index(\n    os.getenv(\"PINECONE_INDEX_NAME\"),\n    embeddings\n)\ndef build_retriever(chat_args, k):\n        search_kwargs = {\n        \"k\": k,\n        \"filter\": {\n            \"pdf_id\": chat_args.pdf_id,\n        },",
         "detail": "pdf.app.chat.vector_stores.pinecone",
+        "documentation": {}
+    },
+    {
+        "label": "select_component",
+        "kind": 2,
+        "importPath": "pdf.app.chat.chat",
+        "description": "pdf.app.chat.chat",
+        "peekOfCode": "def select_component(\n        component_type, component_map, chat_args\n):\n    components = get_conversation_components(\n        chat_args.conversation_id\n    )\n    previous_component = components[component_type]\n    if previous_component:\n        builder = component_map[previous_component]\n        return previous_component, builder(chat_args)",
+        "detail": "pdf.app.chat.chat",
         "documentation": {}
     },
     {
@@ -1272,7 +1290,7 @@
         "kind": 2,
         "importPath": "pdf.app.chat.chat",
         "description": "pdf.app.chat.chat",
-        "peekOfCode": "def build_chat(chat_args: ChatArgs):\n    \"\"\"\n    :param chat_args: ChatArgs object containing\n        conversation_id, pdf_id, metadata, and streaming flag.\n    :return: A chain\n    Example Usage:\n        chain = build_chat(chat_args)\n    \"\"\"\n    retriever = build_retriever(chat_args)\n    llm = build_llm(chat_args)",
+        "peekOfCode": "def build_chat(chat_args: ChatArgs):\n    retriever_name, retriever = select_component(\n        \"retriever\",\n        retriever_map,\n        chat_args\n    )\n    llm_name, llm = select_component(\n        \"llm\",\n        llm_map,\n        chat_args",
         "detail": "pdf.app.chat.chat",
         "documentation": {}
     },
