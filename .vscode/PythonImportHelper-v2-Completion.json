@@ -660,6 +660,14 @@
         "documentation": {}
     },
     {
+        "label": "random_component_by_score",
+        "importPath": "app.chat.score",
+        "description": "app.chat.score",
+        "isExtraImport": true,
+        "detail": "app.chat.score",
+        "documentation": {}
+    },
+    {
         "label": "PyPDFLoader",
         "importPath": "langchain.document_loaders",
         "description": "langchain.document_loaders",
@@ -681,6 +689,23 @@
         "description": "app.chat.vector_stores.pinecone",
         "isExtraImport": true,
         "detail": "app.chat.vector_stores.pinecone",
+        "documentation": {}
+    },
+    {
+        "label": "redis",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "redis",
+        "description": "redis",
+        "detail": "redis",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "importPath": "app.chat.redis",
+        "description": "app.chat.redis",
+        "isExtraImport": true,
+        "detail": "app.chat.redis",
         "documentation": {}
     },
     {
@@ -1304,11 +1329,29 @@
         "documentation": {}
     },
     {
+        "label": "client",
+        "kind": 5,
+        "importPath": "pdf.app.chat.redis",
+        "description": "pdf.app.chat.redis",
+        "peekOfCode": "client = redis.Redis.from_url(\n    os.environ[\"REDIS_URI\"],\n    decode_responses=True\n)",
+        "detail": "pdf.app.chat.redis",
+        "documentation": {}
+    },
+    {
+        "label": "random_component_by_score",
+        "kind": 2,
+        "importPath": "pdf.app.chat.score",
+        "description": "pdf.app.chat.score",
+        "peekOfCode": "def random_component_by_score(component_type, component_map):\n    # make sure component type is 'llm', 'retriever', or 'memory'\n    if component_type not in [\"llm\", \"retriever\", \"memory\"]:\n        raise ValueError(\"Invalid component_type\")\n    # From redis, get the hash containing the sum total scores for the given component_type\n    values = client.hgetall(f\"{component_type}_score_values\")\n    # From redis, get the hash containing the number of times each component has been voted on\n    counts = client.hgetall(f\"{component_type}_score_counts\")\n    # Get all the component names from the component map\n    names = component_map.keys()",
+        "detail": "pdf.app.chat.score",
+        "documentation": {}
+    },
+    {
         "label": "score_conversation",
         "kind": 2,
         "importPath": "pdf.app.chat.score",
         "description": "pdf.app.chat.score",
-        "peekOfCode": "def score_conversation(\n    conversation_id: str, score: float, llm: str, retriever: str, memory: str\n) -> None:\n    \"\"\"\n    This function interfaces with langfuse to assign a score to a conversation, specified by its ID.\n    It creates a new langfuse score utilizing the provided llm, retriever, and memory components.\n    The details are encapsulated in JSON format and submitted along with the conversation_id and the score.\n    :param conversation_id: The unique identifier for the conversation to be scored.\n    :param score: The score assigned to the conversation.\n    :param llm: The Language Model component information.",
+        "peekOfCode": "def score_conversation(\n    conversation_id: str, score: float, llm: str, retriever: str, memory: str\n) -> None:\n    score = min(max(score, 0),1)\n    client.hincrby(\"llm_score_values\", llm, score)\n    client.hincrby(\"llm_score_counts\", llm, 1)\n    client.hincrby(\"retriever_score_values\", retriever, score)\n    client.hincrby(\"retriever_score_counts\", retriever, 1)\n    client.hincrby(\"memory_score_values\", memory, score)\n    client.hincrby(\"memory_score_counts\", memory, 1)",
         "detail": "pdf.app.chat.score",
         "documentation": {}
     },
